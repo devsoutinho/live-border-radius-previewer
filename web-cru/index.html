@@ -1,0 +1,91 @@
+<main>
+    <form class="css-config">
+        <input type="number" name="inputGlobalBorderRadius_0" placeholder="px" />
+        <input type="number" name="inputGlobalBorderRadius_1" placeholder="px" />
+        <input type="number" name="inputGlobalBorderRadius_2" placeholder="px" />
+        <input type="number" name="inputGlobalBorderRadius_4" placeholder="px" />
+    </form>
+
+    <div class="box">
+        border-radius: 0;
+    </div>
+</main>
+
+<style style="display: none; white-space: pre;" contenteditable>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: sans-serif;
+        background-color: #F9D8C8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    main {
+        position: relative;
+        padding: 40px;
+        width: 80vw;
+        height: 80vw;
+    }
+
+    main input {
+        position: absolute;
+        max-width: 50px;
+    }
+
+    main input:nth-child(1) {
+        left: 10px;
+        top: 10px;
+    }
+
+    main input:nth-child(2) {
+        right: 10px;
+        top: 10px;
+    }
+
+    main input:nth-child(3) {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    main input:nth-child(4) {
+        left: 10px;
+        bottom: 10px;
+    }
+
+    .box {
+        width: 100%;
+        height: 100%;
+        background-color: #DB571A;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<script>
+    const $box = document.querySelector('.box');
+    const $formCSSConfig = document.querySelector('.css-config');
+
+    // Já conseguimos mudar o CSS do Box
+    $formCSSConfig.addEventListener('input', function inputHandler() {
+        console.log('Monitorando qualquer input!');
+
+        const newValue = Array
+            .from($formCSSConfig.querySelectorAll('input'))
+            .map(($input) => {
+                if($input.value) return `${$input.value}px`;
+            })
+            .filter((value) => Boolean(value))
+            .join(' ');
+
+        $box.style.borderRadius = newValue;
+        $box.innerHTML = (
+            `border-radius: ${newValue};`
+        );
+    });
+</script>
